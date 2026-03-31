@@ -1,0 +1,31 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\Inventory;
+use App\Models\Product;
+use App\Models\Supplier;
+use Illuminate\Database\Seeder;
+
+class DatabaseSeeder extends Seeder
+{
+    public function run(): void
+    {
+        // Create 10 suppliers
+        $suppliers = Supplier::factory(10)->create();
+        
+        // For each supplier, create 5 products
+        $suppliers->each(function ($supplier) {
+            $products = Product::factory(5)->create([
+                'supplier_id' => $supplier->id
+            ]);
+            
+            // For each product, create an inventory record
+            $products->each(function ($product) {
+                Inventory::factory()->create([
+                    'product_id' => $product->id
+                ]);
+            });
+        });
+    }
+}
