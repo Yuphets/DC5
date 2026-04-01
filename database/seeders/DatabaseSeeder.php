@@ -11,15 +11,15 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        // Create 10 suppliers
-        $suppliers = Supplier::factory(10)->create();
-        
-        // For each supplier, create 5 products
+        // Create 6 realistic suppliers
+        $suppliers = Supplier::factory(6)->create();
+
+        // For each supplier, create 4-5 products
         $suppliers->each(function ($supplier) {
-            $products = Product::factory(5)->create([
+            $products = Product::factory(rand(4, 5))->create([
                 'supplier_id' => $supplier->id
             ]);
-            
+
             // For each product, create an inventory record
             $products->each(function ($product) {
                 Inventory::factory()->create([

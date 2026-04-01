@@ -13,9 +13,9 @@ class SupplierFactory extends Factory
     {
         return [
             'name' => $this->faker->company,
-            'email' => $this->faker->companyEmail,
+            'email' => $this->faker->unique()->companyEmail,
             'phone' => $this->faker->phoneNumber,
-            'address' => $this->faker->address,
+            'address' => $this->faker->streetAddress,
             'contact_person' => $this->faker->name,
         ];
     }

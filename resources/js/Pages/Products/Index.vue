@@ -6,7 +6,7 @@
           <div class="p-6">
             <div class="flex justify-between items-center mb-6">
               <h1 class="text-2xl font-bold">Products Management</h1>
-              <button 
+              <button
                 @click="openModal()"
                 class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200"
               >
@@ -14,7 +14,7 @@
               </button>
             </div>
 
-            <!-- Products Table -->
+            <!-- Products Table (same as before) -->
             <div class="overflow-x-auto">
               <table class="min-w-full table-auto">
                 <thead class="bg-gray-100">
@@ -39,13 +39,13 @@
                       </span>
                     </td>
                     <td class="px-4 py-3">
-                      <button 
+                      <button
                         @click="openModal(product)"
                         class="text-blue-600 hover:text-blue-900 mr-3 text-sm"
                       >
                         Edit
                       </button>
-                      <button 
+                      <button
                         @click="deleteProduct(product.id)"
                         class="text-red-600 hover:text-red-900 text-sm"
                       >
@@ -54,7 +54,7 @@
                     </td>
                   </tr>
                   <tr v-if="products.length === 0">
-                    <td colspan="6" class="text-center py-8 text-gray-500">No products found. Click "Add Product" to create one.</td>
+                    <td colspan="6" class="text-center py-8 text-gray-500">No products found.</td>
                   </tr>
                 </tbody>
               </table>
@@ -62,7 +62,7 @@
 
             <!-- Modal -->
             <div v-if="showModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-              <div class="bg-white rounded-lg shadow-xl w-full max-w-md mx-4">
+              <div class="bg-white rounded-lg shadow-xl w-full max-w-md mx-4 max-h-[90vh] overflow-y-auto">
                 <div class="flex justify-between items-center p-6 border-b">
                   <h3 class="text-xl font-bold">{{ editingProduct ? 'Edit Product' : 'Add New Product' }}</h3>
                   <button @click="closeModal" class="text-gray-400 hover:text-gray-600">&times;</button>
@@ -71,26 +71,26 @@
                   <div class="space-y-4">
                     <div>
                       <label class="block text-sm font-medium text-gray-700 mb-1">Product Name *</label>
-                      <input 
-                        v-model="form.name" 
-                        type="text" 
+                      <input
+                        v-model="form.name"
+                        type="text"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                         required
                       >
                     </div>
                     <div>
                       <label class="block text-sm font-medium text-gray-700 mb-1">SKU *</label>
-                      <input 
-                        v-model="form.sku" 
-                        type="text" 
+                      <input
+                        v-model="form.sku"
+                        type="text"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                         required
                       >
                     </div>
                     <div>
                       <label class="block text-sm font-medium text-gray-700 mb-1">Description *</label>
-                      <textarea 
-                        v-model="form.description" 
+                      <textarea
+                        v-model="form.description"
                         rows="3"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                         required
@@ -98,18 +98,18 @@
                     </div>
                     <div>
                       <label class="block text-sm font-medium text-gray-700 mb-1">Price *</label>
-                      <input 
-                        v-model="form.price" 
-                        type="number" 
-                        step="0.01" 
+                      <input
+                        v-model="form.price"
+                        type="number"
+                        step="0.01"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                         required
                       >
                     </div>
                     <div>
                       <label class="block text-sm font-medium text-gray-700 mb-1">Supplier *</label>
-                      <select 
-                        v-model="form.supplier_id" 
+                      <select
+                        v-model="form.supplier_id"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                         required
                       >
@@ -119,16 +119,59 @@
                         </option>
                       </select>
                     </div>
+
+                    <!-- Inventory fields -->
+                    <div class="border-t pt-4 mt-4">
+                      <h4 class="font-medium text-gray-700 mb-3">Inventory Information</h4>
+                      <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Quantity *</label>
+                        <input
+                          v-model="form.quantity"
+                          type="number"
+                          min="0"
+                          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          required
+                        >
+                      </div>
+                      <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Location *</label>
+                        <input
+                          v-model="form.location"
+                          type="text"
+                          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          required
+                        >
+                      </div>
+                      <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Reorder Level *</label>
+                        <input
+                          v-model="form.reorder_level"
+                          type="number"
+                          min="0"
+                          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          required
+                        >
+                      </div>
+                      <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Last Restocked *</label>
+                        <input
+                          v-model="form.last_restocked"
+                          type="date"
+                          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          required
+                        >
+                      </div>
+                    </div>
                   </div>
                   <div class="flex justify-end gap-3 mt-6">
-                    <button 
+                    <button
                       type="button"
                       @click="closeModal"
                       class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition"
                     >
                       Cancel
                     </button>
-                    <button 
+                    <button
                       type="submit"
                       class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
                     >
@@ -163,7 +206,11 @@ const form = reactive({
   sku: '',
   description: '',
   price: '',
-  supplier_id: ''
+  supplier_id: '',
+  quantity: 0,
+  location: '',
+  reorder_level: 0,
+  last_restocked: ''
 });
 
 const getStockClass = (quantity) => {
@@ -180,14 +227,32 @@ const openModal = (product = null) => {
     form.description = product.description;
     form.price = product.price;
     form.supplier_id = product.supplier_id;
+    // Populate inventory fields if product has inventory
+    if (product.inventory) {
+      form.quantity = product.inventory.quantity;
+      form.location = product.inventory.location;
+      form.reorder_level = product.inventory.reorder_level;
+      form.last_restocked = product.inventory.last_restocked;
+    } else {
+      // Defaults if no inventory (shouldn't happen but just in case)
+      form.quantity = 0;
+      form.location = '';
+      form.reorder_level = 10;
+      form.last_restocked = new Date().toISOString().slice(0,10);
+    }
   } else {
     editingProduct.value = null;
+    // Reset form
     Object.assign(form, {
       name: '',
       sku: '',
       description: '',
       price: '',
-      supplier_id: ''
+      supplier_id: '',
+      quantity: 0,
+      location: '',
+      reorder_level: 10,
+      last_restocked: new Date().toISOString().slice(0,10)
     });
   }
   showModal.value = true;
